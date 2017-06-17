@@ -1,3 +1,90 @@
 body {
-    background-color: pink;
+    overflow: hidden;
+    font-family: 'Overpass', sans-serif;
+}
+.weather-app:before {
+    content: '';
+    position: absolute;
+    top: -25px;
+    left: -25px;
+    width: calc(100% + 30px);
+    height: calc(100% + 30px);
+    background: url('https://images.unsplash.com/photo-1432672301844-a3619c197980?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg=') no-repeat center;
+    background-size: cover;
+    filter: blur(3px);
+}
+.weather-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    width: 70%;
+    height: 70%;
+    min-height: 400px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0 0 30px 0 rgba(0,0,0,.75);
+}
+.weather-content .container-fluid,
+.weather-content .row,
+.weather-description, 
+.weather-info {
+    height: 100%;
+}
+.weather-description {
+    overflow-y: auto;
+    background-color: rgba(255,255,255, .6);
+}
+.weather-info-type:first-letter{
+    text-transform: uppercase;
+}
+.weather-description, 
+.weather-info {
+    padding: 30px;
+}
+.weather-date {
+    font-size: 18px;
+    color: #fff;
+}
+.weather-info-type {
+    color: #fff;
+    font-size: 32px;
+}
+.weather-temperature {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    color: #fff;
+}
+.temperature-q {
+    font-size: 85px;
+    letter-spacing: -5px;
+}
+.weather-location {
+    font-size: 20px;
+}
+.weather-day {
+    width: 90%;
+    border-bottom: 2px solid #fff;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 5px;
+    position: relative;
+}
+.weather-day + .weather-day {
+    margin-top: 25px;
+}
+.weather-day-type {
+    font-size: 18px;
+} 
+.weather-day-t {
+    font-size: 28px;
+    display: inline-block;
+    line-height: 1;
+}
+.weather-day-time {
+    position: absolute;
+    right: 0;
+    bottom: 10px;
 }

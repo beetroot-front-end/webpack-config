@@ -4,7 +4,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   entry: {
-      main :'./src/index.js'
+      main :'./src/js/index.js'
   },
   output: {
     filename: '[name].js',
@@ -27,7 +27,8 @@ module.exports = {
     ]
   },
   plugins: [ new HtmlWebpackPlugin({
-      title:'FROM HTML PLUGIN'
+      title:'Weather App',
+      template: 'src/index.html'
   }),
   new ExtractTextPlugin("styles.css") ],
 };

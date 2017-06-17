@@ -63,34 +63,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-exports.default = function () {
-    var component = document.getElementsByTagName('div');
-    console.log('>>>');
-    return component.length;
-};
-
-/***/ }),
+/* 0 */,
 /* 1 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10350,38 +10328,229 @@ return jQuery;
 
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _module = __webpack_require__(0);
-
-var _module2 = _interopRequireDefault(_module);
-
-var _jquery = __webpack_require__(2);
+var _jquery = __webpack_require__(1);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-__webpack_require__(1);
+__webpack_require__(3);
+
+var _requests = __webpack_require__(8);
+
+var _requests2 = _interopRequireDefault(_requests);
+
+var _view = __webpack_require__(10);
+
+var _view2 = _interopRequireDefault(_view);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var component = function component() {
-    var div = document.createElement('div');
-    div.innerHTML = 'Hello Webpack!';
-    return div;
+var weather = new _requests2.default();
+
+weather.getCurrent(_view2.default.renderMain);
+
+weather.getPerHour(_view2.default.renderList);
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jquery = __webpack_require__(1);
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _utils = __webpack_require__(9);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Request = function () {
+    function Request() {
+        var city = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'kiev';
+        var requestParams = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+        var uri = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _utils.URI;
+        var key = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : _utils.API_KEY;
+
+        _classCallCheck(this, Request);
+
+        this.city = city;
+        this.requestParams = Object.assign({}, requestParams);
+        this.key = key;
+        this.uri = uri;
+    }
+
+    _createClass(Request, [{
+        key: 'mapToUrlProps',
+        value: function mapToUrlProps(type) {
+            var result = this.uri[type] + '?' + 'q=' + this.city + '&';
+            result += 'appid=' + this.key;
+            return result;
+        }
+    }, {
+        key: 'getCurrent',
+        value: function getCurrent(fn) {
+            var requestURL = this.mapToUrlProps('current');
+            _jquery2.default.get(requestURL, fn);
+        }
+    }, {
+        key: 'getPerHour',
+        value: function getPerHour(fn) {
+            var requestURL = this.mapToUrlProps('per_day');
+            _jquery2.default.get(requestURL, fn);
+        }
+    }]);
+
+    return Request;
+}();
+
+exports.default = Request;
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var API_KEY = exports.API_KEY = '26f430f3bff06cfb92011b1944af2e7f';
+var URI = exports.URI = {
+    current: 'http://api.openweathermap.org/data/2.5/weather',
+    per_day: 'http://api.openweathermap.org/data/2.5/forecast'
 };
 
-document.body.appendChild(component());
+var WEATHER_BG = exports.WEATHER_BG = [{
+    id: 2,
+    src: 'https://images.unsplash.com/photo-1465440567949-6062e3a8459f?dpr=2.5&auto=format&fit=crop&w=1080&h=720&q=80&cs=tinysrgb&crop=&bg=',
+    title: 'Thunderstorm'
+}, {
+    id: 3,
+    src: 'https://images.unsplash.com/photo-1484268234627-2278797bec04?dpr=2.5&auto=format&fit=crop&w=1080&h=720&q=80&cs=tinysrgb&crop=&bg=',
+    title: 'Drizzle'
+}, {
+    id: 5,
+    src: 'https://images.unsplash.com/photo-1466454709953-f4b128c56f48?dpr=2.5&auto=format&fit=crop&w=1080&h=720&q=80&cs=tinysrgb&crop=&bg=',
+    title: 'Rain'
+}, {
+    id: 6,
+    src: 'https://images.unsplash.com/photo-1484609183459-4b313973739c?dpr=2.5&auto=format&fit=crop&w=1080&h=720&q=80&cs=tinysrgb&crop=&bg=',
+    title: 'Snow'
+}, {
+    id: 7,
+    src: 'https://images.unsplash.com/photo-1484463572319-3ff2fc349852?dpr=2.5&auto=format&fit=crop&w=1080&h=719&q=80&cs=tinysrgb&crop=&bg=',
+    title: 'Atmosphere'
+}, {
+    id: 8,
+    src: 'https://images.unsplash.com/photo-1464495310703-83aac94583ee?dpr=2.5&auto=format&fit=crop&w=1080&h=810&q=80&cs=tinysrgb&crop=&bg=',
+    title: 'Clear'
+}, {
+    id: 9,
+    src: 'https://images.unsplash.com/photo-1454789476662-53eb23ba5907?dpr=2.5&auto=format&fit=crop&w=1080&h=1389&q=80&cs=tinysrgb&crop=&bg=',
+    title: 'Extreme'
+}];
 
-// test
-console.log('>>>', (0, _module2.default)() === 1);
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
 
-(0, _jquery2.default)(document).ready(function () {
-    console.log('jQuery is here!');
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _jquery = __webpack_require__(1);
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _utils = __webpack_require__(9);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var View = function () {
+    function View() {
+        _classCallCheck(this, View);
+    }
+
+    _createClass(View, null, [{
+        key: 'renderMain',
+        value: function renderMain(data) {
+            var $mainBlock = (0, _jquery2.default)('.weather-content'),
+                $currentDate = {
+                day: (0, _jquery2.default)('.day'),
+                month: (0, _jquery2.default)('.month'),
+                year: (0, _jquery2.default)('.year')
+            },
+                $weatherInfo = (0, _jquery2.default)('.weather-info-type'),
+                $temperature = (0, _jquery2.default)('.temperature-q span'),
+                $userLocation = (0, _jquery2.default)('.weather-location');
+
+            var date = new Date().toDateString().split(' '),
+                weatherNow = data.weather[0];
+
+            var currentWeatherType = _utils.WEATHER_BG.find(function (item) {
+                return String(item.id)[0] === String(weatherNow.id)[0];
+            });
+
+            $weatherInfo.text(weatherNow.description);
+            $temperature.text(Math.round(data.main.temp - 273));
+            $userLocation.text(data.name + ' , ' + data.sys.country || '');
+            $currentDate.day.text(date[0]);
+            $currentDate.month.text(date[1]);
+            $currentDate.year.text(date[3]);
+            $mainBlock.css('background-image', 'url(\'' + currentWeatherType.src + '\'').fadeIn(1500);
+            console.log(data);
+        }
+    }, {
+        key: 'renderList',
+        value: function renderList(data) {
+            function createItem(w) {
+                var currentWeather = w.weather[0];
+                return '<li class="weather-day">\n                  <p class="weather-day-type">\n                      ' + currentWeather.main + '\n                  </p>\n                  <strong class="weather-day-t">\n                    <span>' + Math.round(w.main.temp - 273) + '</span> &#176;C\n                  </strong>\n                  <span class="weather-day-time">\n                    ' + w.dt_txt + '\n                  </span>\n                </li>';
+            }
+
+            var template = data.list.map(createItem);
+            (0, _jquery2.default)('.weather-week').append(template);
+            (0, _jquery2.default)('.weather-description').fadeIn();
+        }
+    }]);
+
+    return View;
+}();
+
+exports.default = View;
 
 /***/ })
 /******/ ]);
